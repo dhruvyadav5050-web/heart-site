@@ -305,9 +305,9 @@ canvas {
 const music = document.getElementById("bgMusic");
 
 function startMusic() {
-    music.volume = 0;
+    music.volume = 10;
     music.play();
-    let volume = 0;
+    let volume = 10;
     const fade = setInterval(() => {
         volume += 0.02;
         if (volume >= 0.6) {
@@ -392,5 +392,6 @@ function sayYes() {
 
 </body>
 </html>
+
 
 
