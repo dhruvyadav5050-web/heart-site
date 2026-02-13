@@ -23,9 +23,11 @@ body {
     align-items: center;
     background: radial-gradient(circle at top, #ff7eb3, #ff4b5c, #1a001f);
     color: white;
+    transition: 1s;
 }
 
-/* Cinematic fade-in */
+audio { display: none; }
+
 .container {
     text-align: center;
     max-width: 800px;
@@ -50,10 +52,135 @@ body {
 h1 {
     font-family: 'Dancing Script', cursive;
     font-size: 3.2rem;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-shadow: 0 0 20px rgba(255,255,255,0.5);
 }
 
+/* 💎 LEGENDARY++ PHOTO */
+.photo-frame {
+    margin: 20px auto 25px;
+    width: 260px;
+    height: 260px;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 60px rgba(255, 126, 179, 0.75);
+    animation: photoFloat 5s ease-in-out infinite;
+    cursor: pointer;
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: photoEntry 2s ease, photoZoom 20s ease-in-out infinite;
+    transition: 0.6s;
+}
+
+.photo-frame:hover img {
+    transform: scale(1.12);
+    filter: brightness(1.1);
+}
+
+/* Entry */
+@keyframes photoEntry {
+    from {
+        opacity: 0;
+        transform: scale(1.4);
+        filter: blur(14px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Slow zoom */
+@keyframes photoZoom {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+/* Float */
+@keyframes photoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+/* Glow pulse */
+.photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    box-shadow: 0 0 40px rgba(255,255,255,0.35);
+    opacity: 0.5;
+    animation: glowPulse 3.5s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%,100% { opacity: 0.35; }
+    50% { opacity: 0.75; }
+}
+
+/* Shimmer */
+.photo-frame::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(120deg,
+        transparent,
+        rgba(255,255,255,0.5),
+        transparent);
+    transform: rotate(25deg);
+    animation: shimmer 5s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -60%; }
+    100% { left: 140%; }
+}
+
+/* Orbit sparkles */
+.orbit {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    animation: rotateOrbit 14s linear infinite;
+}
+
+.orbit span {
+    position: absolute;
+    font-size: 18px;
+}
+
+.orbit span:nth-child(1) {
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.orbit span:nth-child(2) {
+    bottom: 15px;
+    left: -5px;
+}
+
+.orbit span:nth-child(3) {
+    bottom: 15px;
+    right: -5px;
+}
+
+@keyframes rotateOrbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Text */
 p {
     font-size: 1.05rem;
     line-height: 1.7;
@@ -101,11 +228,11 @@ button:hover {
     }
 }
 
-/* Celebration screen */
+/* Celebration */
 #celebration {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,0.9);
     display: none;
     justify-content: center;
     align-items: center;
@@ -125,7 +252,7 @@ button:hover {
     font-size: 3rem;
     color: #ff7eb3;
     margin-bottom: 15px;
-    text-shadow: 0 0 25px rgba(255,126,179,0.6);
+    text-shadow: 0 0 35px rgba(255,126,179,0.8);
 }
 
 canvas {
@@ -139,34 +266,30 @@ canvas {
 
 <body>
 
-<canvas id="fireworks"></canvas>
+<audio id="bgMusic" loop>
+  <source src="assets/thinking-of-you.mp3" type="audio/mpeg">
+</audio>
 
+<canvas id="fireworks"></canvas>
 <div class="hearts"></div>
 
 <div class="container">
     <h1>Dhruvi 💖</h1>
+
+    <div class="photo-frame">
+        <!-- 📸 YOUR PHOTO -->
+        <img src="assets/photo.jpg" alt="Us 💖">
+
+        <div class="orbit">
+            <span>💖</span>
+            <span>✨</span>
+            <span>💫</span>
+        </div>
+    </div>
+
     <p>
-        Every day with you feels like a dream come true.
-        You’ve been the dream I’ve been seeing every day for the past five years —
-        the dream that seemed impossible to come true.
-        But then, one night, everything changed. 💫<br><br>
-
-        I can’t express my love for you in words,
-        and even today, I don’t have the confidence to express it fully.
-        I understand that there might be past issues or thoughts holding you back from love,
-        but trust me, no one is like everyone else.<br><br>
-
-        I’m not here to cause chaos in your life.
-        I’m here to make you feel loved, safe, and deeply cared for. 🤍<br><br>
-
-        Every day you spend with me,
-        I’ll try to make you feel special.
-        I’m not here to enter your life and leave —
-        I’m here to stay forever. 🌹<br><br>
-
-        All I ask is one chance.
-        And I promise you… you won’t regret it. 💖<br><br>
-
+        Every day with you feels like a dream come true...
+        <br><br>
         Will you be my Valentine?
     </p>
 
@@ -179,7 +302,24 @@ canvas {
 </div>
 
 <script>
-/* Floating hearts generator */
+const music = document.getElementById("bgMusic");
+
+function startMusic() {
+    music.volume = 0;
+    music.play();
+    let volume = 0;
+    const fade = setInterval(() => {
+        volume += 0.02;
+        if (volume >= 0.6) {
+            volume = 0.6;
+            clearInterval(fade);
+        }
+        music.volume = volume;
+    }, 100);
+}
+document.addEventListener("click", startMusic, { once: true });
+
+/* Hearts */
 const heartsContainer = document.querySelector('.hearts');
 
 function createHeart() {
@@ -234,20 +374,23 @@ function animateFireworks() {
 }
 animateFireworks();
 
-/* YES click */
+/* YES */
 function sayYes() {
     document.getElementById('celebration').style.display = 'flex';
+    music.volume = 1;
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         setTimeout(() => {
             createFirework(
                 Math.random() * canvas.width,
                 Math.random() * canvas.height / 2
             );
-        }, i * 300);
+        }, i * 250);
     }
 }
 </script>
 
 </body>
 </html>
+
+
